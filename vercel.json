@@ -1,15 +1,8 @@
 {
-    "version": 2,
-    "builds": [
-        {
-            "src": "snake_game.html",
-            "use": "@vercel/static"
-        }
-    ],
-    "routes": [
-        {
-            "src": "/",
-            "dest": "/snake_game.html"
-        }
-    ]
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/snake_game.html"
+    }
+  ]
 }
