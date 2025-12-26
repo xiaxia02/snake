@@ -2,14 +2,14 @@
     "version": 2,
     "builds": [
         {
-            "src": "index.html",
+            "src": "snake_game.html",
             "use": "@vercel/static"
         }
     ],
     "routes": [
         {
             "src": "/",
-            "dest": "/index.html"
+            "dest": "/snake_game.html"
         }
     ]
 }
