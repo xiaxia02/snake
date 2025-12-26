@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>诺基亚贪吃蛇</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        /* 诺基亚手机容器 */
+        .nokia-phone {
+            display: inline-block;
+            background-color: #3a465b;
+            border-radius: 25px;
+            padding: 40px 20px 60px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        
+        /* 屏幕区域 */
+        .phone-screen {
+            background-color: #a0c06c;
+            border: 2px solid #333;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        /* 游戏画布 */
+        #gameCanvas {
+            border: 2px solid #333;
+            background-color: #000;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        /* 得分显示 - 集成到屏幕内 */
+        .screen-info {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 5px;
+        }
+        
+        /* 游戏结束提示 */
+        #game-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #000;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            padding: 15px;
+            border: 2px solid #00ff00;
+            display: none;
+        }
+        
+        /* 按键区域 */
+        .keypad {
+            margin-top: 20px;
+        }
+        
+        /* 方向键 */
+        .direction-pad {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .direction-row {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .direction-btn {
+            width: 50px;
+            height: 50px;
+            background-color: #2a3443;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .direction-btn:hover {
+            background-color: #3a465b;
+        }
+        
+        .direction-btn:active {
+            background-color: #1a2433;
+            transform: translateY(1px);
+        }
+        
+        /* Start按键 */
+        .start-btn {
+            width: 100px;
+            height: 40px;
+            background-color: #2a3443;
+            border: none;
+            border-radius: 20px;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .start-btn:hover {
+            background-color: #3a465b;
+        }
+        
+        .start-btn:active {
+            background-color: #1a2433;
+            transform: translateY(1px);
+        }
+        
+        /* Nokia标志 */
+        .nokia-logo {
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        
+        /* 隐藏原始控制按钮 */
+        #controls {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>90年代诺基亚贪吃蛇</h1>
+    
+    <!-- 诺基亚手机 -->
+    <div class="nokia-phone">
+        <!-- 屏幕区域 -->
+        <div class="phone-screen">
+            <!-- 屏幕顶部信息 -->
+            <div class="screen-info">
+                <span>SCORE: <span id="score">0</span></span>
+                <span>HI: 0</span>
+            </div>
+            
+            <!-- 游戏容器 -->
+            <div id="game-container">
+                <canvas id="gameCanvas" width="240" height="240"></canvas>
+                <div id="game-over">
+                    GAME OVER<br>
+                    PRESS START
+                </div>
+            </div>
+        </div>
+        
+        <!-- 按键区域 -->
+        <div class="keypad">
+            <!-- 方向键 -->
+            <div class="direction-pad">
+                <div class="direction-row">
+                    <button class="direction-btn" id="up-btn" onclick="handleButtonPress('ArrowUp')">↑</button>
+                </div>
+                <div class="direction-row">
+                    <button class="direction-btn" id="left-btn" onclick="handleButtonPress('ArrowLeft')">←</button>
+                    <button class="direction-btn" id="down-btn" onclick="handleButtonPress('ArrowDown')">↓</button>
+                    <button class="direction-btn" id="right-btn" onclick="handleButtonPress('ArrowRight')">→</button>
+                </div>
+            </div>
+            
+            <!-- Start按键 -->
+            <button class="start-btn" onclick="startGame()">START</button>
+            
+            <!-- Nokia标志 -->
+            <div class="nokia-logo">NOKIA</div>
+        </div>
+    </div>
+    
+    <!-- 原始控制区域（隐藏） -->
+    <div id="controls">
+        <button onclick="startGame()">开始游戏</button>
+        <button onclick="pauseGame()">暂停</button>
+    </div>
+    
+    <script src="snake_game.js"></script>
+</body>
+</html>
